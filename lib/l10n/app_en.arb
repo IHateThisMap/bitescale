@@ -1,0 +1,579 @@
+{
+  "@@locale": "en",
+  "languageName": "English",
+  "@languageName": {
+    "description": "Name of this language in the language itself, shown in the language picker."
+  },
+  "languageFlag": "🇬🇧",
+  "@languageFlag": {
+    "description": "Flag emoji shown on the language button and in the language picker."
+  },
+  "appTitle": "BiteScale",
+  "language": "Language",
+  "systemDefault": "System default",
+  "cancel": "Cancel",
+  "save": "Save",
+  "add": "Add",
+  "delete": "Delete",
+  "yes": "Yes",
+  "no": "No",
+  "edit": "Edit",
+  "male": "Male",
+  "female": "Female",
+  "weight": "Weight",
+  "food": "Food",
+  "valueBetween": "Enter a value between {min} and {max}",
+  "@valueBetween": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "welcome": "Welcome!",
+  "heightQuestion": "How tall are you? Your height is used to calculate your BMI.",
+  "height": "Height",
+  "heightError": "Enter your height in centimetres",
+  "continueButton": "Continue",
+  "editHeight": "Edit height",
+  "yourHeight": "Your height",
+  "addWeight": "Add weight",
+  "noWeightEntries": "No entries yet.\nTap \"Add weight\" to start.",
+  "history": "History",
+  "noWeightsInRange": "No weights recorded in this period.\nDrag the slider left to see further back.",
+  "showingLastDays": "Last {days} days",
+  "@showingLastDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "rangeDays": "{days} d",
+  "@rangeDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "rangeMonths": "{months} mo",
+  "@rangeMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "rangeYears": "{years} yr",
+  "@rangeYears": {
+    "placeholders": {
+      "years": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDayLess": "One day less",
+  "oneDayMore": "One day more",
+  "weightSummaryEmpty": "Log your weight regularly to see your trend and BMI.",
+  "current": "Current",
+  "totalChange": "Total change: {change} kg",
+  "@totalChange": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "trendNeedsTwo": "Add at least two entries on different days to calculate a trend line.",
+  "trendPerWeek": "Trend: {change} kg / week",
+  "@trendPerWeek": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "estimatedDeficit": "Estimated deficit: {kcal} kcal / day",
+  "@estimatedDeficit": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "estimatedSurplus": "Estimated surplus: {kcal} kcal / day",
+  "@estimatedSurplus": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "enterValidWeight": "Enter a valid weight",
+  "bmi": "BMI",
+  "bmiUnderweight": "Underweight",
+  "bmiNormal": "Normal weight",
+  "bmiOverweight": "Overweight",
+  "bmiObese": "Obese",
+  "bodyFat": "Body fat",
+  "bodyFatEssential": "Essential fat",
+  "bodyFatAthletic": "Athletic",
+  "bodyFatFit": "Fit",
+  "bodyFatAverage": "Average",
+  "bodyFatObese": "Obese",
+  "tapToAddMeasurements": "Tap to add measurements",
+  "fatAndLean": "{fat} kg fat · {lean} kg lean",
+  "@fatAndLean": {
+    "placeholders": {
+      "fat": {
+        "type": "String"
+      },
+      "lean": {
+        "type": "String"
+      }
+    }
+  },
+  "measuredOn": "Measured {date}",
+  "@measuredOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setGoal": "Set a weight goal",
+  "setGoalSubtitle": "See the daily calorie deficit you need",
+  "goalNeedsWeight": "Add your weight to see what it takes to get there.",
+  "goalReached": "Goal reached! 🎉",
+  "goalOverdue": "{kg} kg to go, but the goal date has passed. Set a new date.",
+  "@goalOverdue": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
+  },
+  "kgToLose": "{days, plural, =1{{kg} kg to lose in 1 day} other{{kg} kg to lose in {days} days}}",
+  "@kgToLose": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "kgToGain": "{days, plural, =1{{kg} kg to gain in 1 day} other{{kg} kg to gain in {days} days}}",
+  "@kgToGain": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "neededDeficit": "Needed: {kcal} kcal deficit / day",
+  "@neededDeficit": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "neededSurplus": "Needed: {kcal} kcal surplus / day",
+  "@neededSurplus": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "tooFastPace": "That is a very fast pace. Consider a later goal date.",
+  "currentTrendDeficit": "Your current trend: deficit of {kcal} kcal / day",
+  "@currentTrendDeficit": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "currentTrendSurplus": "Your current trend: surplus of {kcal} kcal / day",
+  "@currentTrendSurplus": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "goalTitle": "Goal: {kg} kg by {date}",
+  "@goalTitle": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "editGoal": "Edit goal",
+  "removeGoal": "Remove goal",
+  "weightGoal": "Weight goal",
+  "goalWeight": "Goal weight",
+  "goalDate": "Reach it by",
+  "chartGoal": "Goal",
+  "bodyComposition": "Body composition",
+  "tapeMeasure": "Tape measure",
+  "bmiExplanation": "BMI is calculated from your height and latest weight. It doesn't tell fat and muscle apart.",
+  "navyExplanation": "U.S. Navy method: estimates body fat percentage from tape measurements and your height.",
+  "neck": "Neck",
+  "waist": "Waist",
+  "hips": "Hips",
+  "neckHelp": "Just below the larynx (Adam's apple), tape sloping slightly down to the front",
+  "waistHelpMale": "Horizontally at the level of the navel",
+  "waistHelpFemale": "At the narrowest point of the waist",
+  "hipsHelp": "At the widest point of the buttocks",
+  "bodyFatPreview": "Body fat: {value}",
+  "@bodyFatPreview": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "heightUsed": "Height used: {cm} cm",
+  "@heightUsed": {
+    "placeholders": {
+      "cm": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseSex": "Choose male or female",
+  "enterAllMeasurements": "Enter all measurements in centimetres",
+  "invalidMeasurements": "These measurements don't give a valid result. Check them again.",
+  "dailyCalorieNeeds": "Daily calorie needs",
+  "calorieProfileIntro": "Used together with your height and latest weight to estimate how many calories you burn per day.",
+  "birthYear": "Year of birth",
+  "invalidBirthYear": "Enter a valid year of birth",
+  "activityLevel": "Activity level",
+  "chooseActivity": "Choose your activity level",
+  "activitySedentary": "Sedentary",
+  "activitySedentaryDesc": "Little or no exercise, desk job",
+  "activityLight": "Lightly active",
+  "activityLightDesc": "Light exercise 1–3 days a week",
+  "activityModerate": "Moderately active",
+  "activityModerateDesc": "Exercise 3–5 days a week",
+  "activityActive": "Very active",
+  "activityActiveDesc": "Hard exercise 6–7 days a week",
+  "activityExtreme": "Extremely active",
+  "activityExtremeDesc": "Physical job plus hard training",
+  "myFoods": "My foods",
+  "addFood": "Add food",
+  "today": "Today",
+  "favourites": "Favourites",
+  "addToFavourites": "Add to favourites",
+  "removeFromFavourites": "Remove from favourites",
+  "eaten": "Eaten",
+  "nothingLogged": "Nothing logged for this day.",
+  "kcalEaten": "{kcal} kcal eaten",
+  "@kcalEaten": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "needWeightForTarget": "Add your weight to see how much you should eat per day.",
+  "needInfoForTarget": "Tell the app a bit more about you to see how much you should eat per day.",
+  "goToWeightPage": "Go to weight page",
+  "setUpCalorieTarget": "Set up daily calorie target",
+  "targetGoalDone": "Your goal is reached or its date has passed, so the target keeps your current weight.",
+  "targetNoGoal": "No weight goal set, so the target keeps your current weight.",
+  "targetDeficitToGoal": "{days, plural, =1{{kcal} kcal deficit / day to reach {kg} kg in 1 day} other{{kcal} kcal deficit / day to reach {kg} kg in {days} days}}",
+  "@targetDeficitToGoal": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      },
+      "kg": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "targetSurplusToGoal": "{days, plural, =1{{kcal} kcal surplus / day to reach {kg} kg in 1 day} other{{kcal} kcal surplus / day to reach {kg} kg in {days} days}}",
+  "@targetSurplusToGoal": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      },
+      "kg": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyTarget": "Daily target: {kcal} kcal",
+  "@dailyTarget": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "calorieProfileTooltip": "Age, sex and activity",
+  "overTarget": "Over target",
+  "leftToEat": "Left to eat",
+  "deficitLeft": "Deficit left",
+  "overMaintenance": "Over maintenance",
+  "barGoal": "Goal",
+  "barDeficitEnds": "Deficit ends",
+  "statusWithinGoalDeficit": "Within your goal and in calorie deficit.",
+  "statusWithinGoal": "Within your goal.",
+  "statusOverGoalDeficit": "Over your goal, but still in calorie deficit.",
+  "statusOverGoal": "Over your goal.",
+  "statusNoDeficit": "No calorie deficit left: you have eaten as much as you burn.",
+  "maintenanceLine": "To keep your current weight: {kcal} kcal / day",
+  "@maintenanceLine": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "minimumWarning": "Reaching your goal by its date would need eating less than {kcal} kcal a day, which isn't recommended. The target is limited to that, so consider a later goal date.",
+  "@minimumWarning": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "estimateBodyFat": "Estimate based on your body fat (Katch-McArdle) and activity level.",
+  "estimateMifflin": "Estimate based on your age, sex, height, weight (Mifflin-St Jeor) and activity level.",
+  "nutrientProtein": "Protein",
+  "nutrientCarbs": "Carbohydrates",
+  "nutrientSugar": "of which sugars",
+  "nutrientFat": "Fat",
+  "nutrientFiber": "Fiber",
+  "nutrientSalt": "Salt",
+  "enterValidAmount": "Enter a valid amount",
+  "volume": "Volume",
+  "portionDefault": "portion",
+  "portionCount": "Number of portions",
+  "kcalPer100": "{kcal} kcal per 100 {unit}",
+  "@kcalPer100": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "newFood": "New food",
+  "searchFoods": "Search foods",
+  "all": "All",
+  "noSavedFoods": "No saved foods yet.\nTap \"New food\" to add one.",
+  "noFoodsMatch": "No foods match.",
+  "deleteFoodTitle": "Delete food template \"{name}\"?",
+  "@deleteFoodTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteFoodBody": "It is removed from your saved foods. Days where you already logged it are not changed.",
+  "deleteFoodTemplate": "Delete food template",
+  "removeFromEaten": "Remove from eaten",
+  "removeFromEatenTitle": "Remove \"{name}\" from eaten?",
+  "@removeFromEatenTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "editFood": "Edit food",
+  "takePhoto": "Take photo",
+  "chooseFromGallery": "Choose from gallery",
+  "removePhoto": "Remove photo",
+  "nameRequired": "Name *",
+  "enterName": "Enter a name",
+  "category": "Category",
+  "measuredIn": "Measured in",
+  "grams": "grams",
+  "portionSize": "Portion / piece size",
+  "optional": "Optional",
+  "portionCalled": "Called",
+  "portionCalledHelp": "e.g. slice, piece, glass",
+  "nutritionPer100": "Nutrition per 100 {unit}",
+  "@nutritionPer100": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "caloriesRequired": "Calories *",
+  "required": "Required",
+  "enterSizeAboveZero": "Enter a size above 0",
+  "enterValidNumber": "Enter a valid number",
+  "saveFood": "Save food",
+  "categoryFruitsVegetables": "Fruits & vegetables",
+  "categoryMeatFish": "Meat & fish",
+  "categoryDairyEggs": "Dairy & eggs",
+  "categoryBreadGrains": "Bread & grains",
+  "categoryMeals": "Meals",
+  "categorySnacksSweets": "Snacks & sweets",
+  "categoryDrinks": "Drinks",
+  "categoryOther": "Other",
+  "exportFoods": "Export foods",
+  "importFoods": "Import foods",
+  "noFoodsToExport": "You have no saved foods to export.",
+  "exportedFoods": "{count, plural, =1{Exported 1 food.} other{Exported {count} foods.}}",
+  "@exportedFoods": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportFailed": "Couldn't save the file.",
+  "notAFoodFile": "This isn't a BiteScale food file.",
+  "importNothingNew": "{count, plural, =1{The food in the file is already in the app.} other{All {count} foods in the file are already in the app.}}",
+  "@importNothingNew": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importFoundFoods": "{count, plural, =1{1 food in the file.} other{{count} foods in the file.}}",
+  "@importFoundFoods": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importSkippedDuplicates": "{count, plural, =1{1 is already in the app exactly as it is, so it is skipped.} other{{count} are already in the app exactly as they are, so they are skipped.}}",
+  "@importSkippedDuplicates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importNewFoods": "New foods",
+  "importSimilarFoods": "Similar to foods you already have",
+  "importSimilarHelp": "Only the differences are shown.",
+  "selectAll": "Select all",
+  "selectNone": "Select none",
+  "yours": "Yours",
+  "imported": "Imported",
+  "keepMine": "Keep mine",
+  "useImported": "Replace mine with the imported one",
+  "keepBoth": "Keep both",
+  "importButton": "{count, plural, =0{Nothing to import} =1{Import 1 food} other{Import {count} foods}}",
+  "@importButton": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importDone": "Added {added}, replaced {replaced}.",
+  "@importDone": {
+    "placeholders": {
+      "added": {
+        "type": "int"
+      },
+      "replaced": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldName": "Name",
+  "fieldUnit": "Unit",
+  "fieldCalories": "Calories per 100",
+  "fieldPhoto": "Photo",
+  "noPhoto": "No photo",
+  "caloriesByCategory": "Calories by category",
+  "smallerCategories": "Smaller categories",
+  "allFromCategory": "All calories this day are from {category}.",
+  "@allFromCategory": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "manageCategories": "Manage categories",
+  "customCategoriesHelp": "Categories you have created. The built-in categories can't be removed.",
+  "noCustomCategories": "You haven't created any categories of your own. The built-in categories can't be removed.",
+  "foodCount": "{count, plural, =0{No foods} =1{1 food} other{{count} foods}}",
+  "@foodCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "removeCategory": "Remove category",
+  "removeCategoryTitle": "Remove category \"{name}\"?",
+  "@removeCategoryTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removeCategoryBody": "{count, plural, =0{No foods use it.} =1{1 food will be moved to {other}.} other{{count} foods will be moved to {other}.}}",
+  "@removeCategoryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "other": {
+        "type": "String"
+      }
+    }
+  },
+  "close": "Close",
+  "shareFoods": "Share foods",
+  "shareFood": "Share this food",
+  "shareFoodsHelp": "Choose the foods to send. The other person opens the file with BiteScale and chooses which ones to add.",
+  "shareButton": "{count, plural, =0{Choose foods to share} =1{Share 1 food} other{Share {count} foods}}",
+  "@shareButton": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "shareFoodsMessage": "{count, plural, =1{Here is a food for BiteScale. Open the attached file with BiteScale to add it.} other{Here are {count} foods for BiteScale. Open the attached file with BiteScale to add them.}}",
+  "@shareFoodsMessage": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "shareFoodsSubject": "BiteScale foods",
+  "shareFailed": "Couldn't share the foods."
+}
