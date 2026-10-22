@@ -231,6 +231,9 @@ class FoodLogEntry {
       );
 }
 
+/// Where foods go when they have no category, or theirs was removed.
+const otherCategory = 'Other';
+
 /// Built-in categories. These English names are what gets saved; the app
 /// shows them translated (see `categoryLabel` in lib/l10n/labels.dart).
 /// Categories the user types themselves are saved and shown as typed.
@@ -242,7 +245,7 @@ const defaultFoodCategories = [
   'Meals',
   'Snacks & sweets',
   'Drinks',
-  'Other',
+  otherCategory,
 ];
 
 var _idCounter = 0;

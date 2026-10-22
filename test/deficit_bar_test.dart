@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_calorie_couinter_exercise_app/main.dart';
+import 'package:flutter_calorie_couinter_exercise_app/utils/calorie_target.dart';
+import 'package:flutter_calorie_couinter_exercise_app/widgets/deficit_bar.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:flutter_calorie_couinter_exercise_app/main.dart';
-import 'package:flutter_calorie_couinter_exercise_app/utils/health.dart';
-import 'package:flutter_calorie_couinter_exercise_app/widgets/deficit_bar.dart';
 
 void main() {
   group('intake status', () {

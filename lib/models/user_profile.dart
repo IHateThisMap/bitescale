@@ -16,6 +16,8 @@ enum ActivityLevel {
   final double factor;
 }
 
+/// Everything the user has told the app about themselves. Most fields are
+/// optional and filled in as the user uses more features.
 class UserProfile {
   const UserProfile({
     this.heightCm,

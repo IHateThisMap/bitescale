@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/labels.dart';
+import '../models/food.dart';
 
 // Colours: an 8-colour categorical palette checked for colour-blind
 // separation and contrast, with separate steps for light and dark mode.
@@ -37,7 +38,7 @@ const _builtInSlots = {
   'Bread & grains': 3,
   'Snacks & sweets': 4,
   'Fruits & vegetables': 5,
-  'Other': 6,
+  otherCategory: 6,
   'Meat & fish': 7,
 };
 

@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../models/food.dart';
 import '../models/user_profile.dart';
-import '../utils/health.dart';
+import '../utils/body_metrics.dart';
 import 'app_localizations.dart';
 
 export 'app_localizations.dart';
@@ -69,7 +69,7 @@ extension Labels on AppLocalizations {
         'Meals' => categoryMeals,
         'Snacks & sweets' => categorySnacksSweets,
         'Drinks' => categoryDrinks,
-        'Other' => categoryOther,
+        otherCategory => categoryOther,
         _ => category,
       };
 

@@ -1,3 +1,4 @@
+/// One weigh-in: the weight and when it was measured.
 class WeightEntry {
   const WeightEntry({required this.date, required this.weightKg});
 

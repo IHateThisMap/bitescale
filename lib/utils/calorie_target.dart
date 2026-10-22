@@ -1,91 +1,16 @@
-import 'dart:math' as math;
+// How many calories to eat per day, and how the day's eating compares.
+//
+// 1. BMR (calories burned at rest) comes from body fat when tape
+//    measurements exist (Katch-McArdle), otherwise from weight, height,
+//    age and sex (Mifflin-St Jeor).
+// 2. Maintenance = BMR × activity level: eating this keeps the weight.
+// 3. Target = maintenance − the daily deficit needed to reach the weight
+//    goal on time, but never below a safe minimum.
 
 import '../models/user_profile.dart';
+import 'body_metrics.dart';
+import 'dates.dart';
 import 'trend.dart';
-
-double calculateBmi(double weightKg, double heightCm) {
-  final m = heightCm / 100;
-  return weightKg / (m * m);
-}
-
-enum BmiCategory { underweight, normal, overweight, obese }
-
-BmiCategory bmiCategory(double bmi) {
-  if (bmi < 18.5) return BmiCategory.underweight;
-  if (bmi < 25) return BmiCategory.normal;
-  if (bmi < 30) return BmiCategory.overweight;
-  return BmiCategory.obese;
-}
-
-enum BodyFatCategory { essential, athletic, fit, average, obese }
-
-double _log10(double x) => math.log(x) / math.ln10;
-
-/// Body fat percentage with the U.S. Navy circumference method.
-/// All measurements in centimetres; [hipCm] is needed for women only.
-/// Returns null if the measurements can't produce a valid result.
-double? navyBodyFat({
-  required Sex sex,
-  required double heightCm,
-  required double neckCm,
-  required double waistCm,
-  double? hipCm,
-}) {
-  final double result;
-  if (sex == Sex.male) {
-    if (waistCm <= neckCm) return null;
-    result = 495 /
-            (1.0324 -
-                0.19077 * _log10(waistCm - neckCm) +
-                0.15456 * _log10(heightCm)) -
-        450;
-  } else {
-    if (hipCm == null || waistCm + hipCm <= neckCm) return null;
-    result = 495 /
-            (1.29579 -
-                0.35004 * _log10(waistCm + hipCm - neckCm) +
-                0.22100 * _log10(heightCm)) -
-        450;
-  }
-  return result.isFinite && result > 0 && result < 75 ? result : null;
-}
-
-/// Body fat percentage for the measurements stored in [profile].
-double? profileBodyFat(UserProfile profile) {
-  final sex = profile.sex;
-  final height = profile.heightCm;
-  final neck = profile.neckCm;
-  final waist = profile.waistCm;
-  if (sex == null || height == null || neck == null || waist == null) {
-    return null;
-  }
-  return navyBodyFat(
-    sex: sex,
-    heightCm: height,
-    neckCm: neck,
-    waistCm: waist,
-    hipCm: profile.hipCm,
-  );
-}
-
-/// Categories from the American Council on Exercise.
-BodyFatCategory bodyFatCategory(Sex sex, double percent) {
-  final limits = sex == Sex.male ? [6, 14, 18, 25] : [14, 21, 25, 32];
-  if (percent < limits[0]) return BodyFatCategory.essential;
-  if (percent < limits[1]) return BodyFatCategory.athletic;
-  if (percent < limits[2]) return BodyFatCategory.fit;
-  if (percent < limits[3]) return BodyFatCategory.average;
-  return BodyFatCategory.obese;
-}
-
-DateTime dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
-
-/// Whole days between two dates. Done in UTC, because in local time a
-/// daylight saving change makes some days 23 hours long.
-int _calendarDaysBetween(DateTime from, DateTime to) =>
-    DateTime.utc(to.year, to.month, to.day)
-        .difference(DateTime.utc(from.year, from.month, from.day))
-        .inDays;
 
 /// What it takes to get from the current weight to the goal weight by the
 /// goal date.
@@ -95,8 +20,8 @@ class GoalPlan {
     required this.goalKg,
     required DateTime goalDate,
     DateTime? today,
-  })  : kgToGo = currentKg - goalKg,
-        daysLeft = _calendarDaysBetween(today ?? DateTime.now(), goalDate);
+  }) : kgToGo = currentKg - goalKg,
+       daysLeft = calendarDaysBetween(today ?? DateTime.now(), goalDate);
 
   final double goalKg;
 
@@ -167,7 +92,8 @@ CalorieTarget? calculateCalorieTarget(
   } else {
     // Mifflin-St Jeor.
     final age = now.year - profile.birthYear!;
-    bmr = 10 * weight +
+    bmr =
+        10 * weight +
         6.25 * profile.heightCm! -
         5 * age +
         (sex == Sex.male ? 5 : -161);
@@ -200,6 +126,15 @@ CalorieTarget? calculateCalorieTarget(
   );
 }
 
+/// What's missing to calculate a calorie target (English, for debugging
+/// and tests; the app shows its own translated hints).
+List<String> missingForCalorieTarget(UserProfile profile, double? latestKg) => [
+  if (latestKg == null) 'weight',
+  if (profile.sex == null) 'sex',
+  if (profile.birthYear == null) 'age',
+  if (profile.activityLevel == null) 'activity level',
+];
+
 /// How the day's eating compares to the calorie target and maintenance.
 enum IntakeStatus {
   /// At or under the target (green).
@@ -225,19 +160,12 @@ IntakeStatus intakeStatus({
   // maintenance mean failing it. Maintaining gets the same small margin
   // as the goal itself.
   if (target <= maintenance) {
-    final deficitEnds =
-        target >= maintenance ? maintenance + goalToleranceKcal : maintenance;
+    final deficitEnds = target >= maintenance
+        ? maintenance + goalToleranceKcal
+        : maintenance;
     if (eaten >= deficitEnds) return IntakeStatus.noDeficit;
   }
   return eaten <= target + goalToleranceKcal
       ? IntakeStatus.withinGoal
       : IntakeStatus.overGoal;
 }
-
-/// Human-readable list of what's missing to calculate a calorie target.
-List<String> missingForCalorieTarget(UserProfile profile, double? latestKg) => [
-      if (latestKg == null) 'weight',
-      if (profile.sex == null) 'sex',
-      if (profile.birthYear == null) 'age',
-      if (profile.activityLevel == null) 'activity level',
-    ];

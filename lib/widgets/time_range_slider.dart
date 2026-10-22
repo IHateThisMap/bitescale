@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/labels.dart';
+import '../utils/format.dart';
 import '../utils/time_range.dart';
-import 'number_dialog.dart';
 
 /// Chooses how far back the weight graph goes. Like a timeline, the past
 /// is on the left: dragging left shows a longer time.

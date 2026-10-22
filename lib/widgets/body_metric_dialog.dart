@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../l10n/labels.dart';
 import '../models/user_profile.dart';
-import '../utils/health.dart';
-import 'number_dialog.dart';
+import '../utils/body_metrics.dart';
+import '../utils/format.dart';
 
 /// Chooses between BMI and the U.S. Navy tape measure method, and takes the
 /// tape measurements. Pops with the updated [UserProfile].

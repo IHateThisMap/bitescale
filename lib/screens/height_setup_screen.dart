@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/labels.dart';
+import '../utils/format.dart';
 import '../widgets/language_button.dart';
-import '../widgets/number_dialog.dart';
 
 /// Shown on first launch to ask for the user's height.
 class HeightSetupScreen extends StatefulWidget {

@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:flutter_calorie_couinter_exercise_app/main.dart';
 import 'package:flutter_calorie_couinter_exercise_app/models/food.dart';
 import 'package:flutter_calorie_couinter_exercise_app/services/food_storage.dart';
 import 'package:flutter_calorie_couinter_exercise_app/services/food_transfer.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Records what would be shared instead of opening the share menu.
 class FakeSharePlatform extends SharePlatform {

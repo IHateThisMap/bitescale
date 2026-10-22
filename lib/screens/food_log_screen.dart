@@ -5,7 +5,9 @@ import '../l10n/labels.dart';
 import '../models/food.dart';
 import '../models/user_profile.dart';
 import '../services/food_storage.dart';
-import '../utils/health.dart';
+import '../utils/calorie_target.dart';
+import '../utils/dates.dart';
+import '../utils/format.dart';
 import '../widgets/amount_dialog.dart';
 import '../widgets/calorie_profile_dialog.dart';
 import '../widgets/category_pie_chart.dart';
@@ -13,7 +15,6 @@ import '../widgets/confirm_dialog.dart';
 import '../widgets/deficit_bar.dart';
 import '../widgets/food_image.dart';
 import '../widgets/language_button.dart';
-import '../widgets/number_dialog.dart';
 import 'food_library_screen.dart';
 
 /// The food diary: what was eaten on a chosen day.
@@ -68,14 +69,15 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
     final categoryOf = {for (final f in _foods) f.id: f.category};
     final totals = <String, double>{};
     for (final e in entries) {
-      final category = categoryOf[e.foodId] ?? e.category ?? 'Other';
+      final category = categoryOf[e.foodId] ?? e.category ?? otherCategory;
       totals[category] = (totals[category] ?? 0) + e.nutrients.kcal;
     }
     return totals;
   }
 
-  List<Food> get _favourites => _foods.where((f) => f.favourite).toList()
-    ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+  List<Food> get _favourites =>
+      _foods.where((f) => f.favourite).toList()
+        ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
   bool get _isToday => _day == dateOnly(DateTime.now());
 
@@ -96,9 +98,9 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
   }
 
   Future<void> _openLibrary({required bool pickMode}) async {
-    final pick = await Navigator.of(context).push<FoodPick>(MaterialPageRoute(
-      builder: (_) => FoodLibraryScreen(pickMode: pickMode),
-    ));
+    final pick = await Navigator.of(context).push<FoodPick>(
+      MaterialPageRoute(builder: (_) => FoodLibraryScreen(pickMode: pickMode)),
+    );
     if (pick != null) await _logFood(pick.food, pick.amount);
     await _reload();
   }
@@ -120,21 +122,28 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
     final food = Food(
       id: entry.foodId,
       name: entry.foodName,
-      category: saved?.category ?? 'Other',
+      category: saved?.category ?? otherCategory,
       unit: entry.unit,
       per100: entry.nutrients.scaled(100 / entry.amount),
       imagePath: saved?.imagePath,
       portionSize: saved?.unit == entry.unit ? saved?.portionSize : null,
       portionName: saved?.portionName,
     );
-    final amount = await showAmountDialog(context, food,
-        initialAmount: entry.amount, confirmLabel: context.l10n.save);
+    final amount = await showAmountDialog(
+      context,
+      food,
+      initialAmount: entry.amount,
+      confirmLabel: context.l10n.save,
+    );
     if (amount == null) return;
 
-    final updated =
-        entry.copyWith(amount: amount, nutrients: food.nutrientsFor(amount));
-    setState(() =>
-        _log = [for (final e in _log) e.id == entry.id ? updated : e]);
+    final updated = entry.copyWith(
+      amount: amount,
+      nutrients: food.nutrientsFor(amount),
+    );
+    setState(
+      () => _log = [for (final e in _log) e.id == entry.id ? updated : e],
+    );
     await _storage.saveLog(_log);
   }
 
@@ -143,8 +152,8 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
     await _storage.saveLog(_log);
   }
 
-  Future<bool> _confirmRemoveEntry(FoodLogEntry entry) => confirmYesNo(
-      context, context.l10n.removeFromEatenTitle(entry.foodName));
+  Future<bool> _confirmRemoveEntry(FoodLogEntry entry) =>
+      confirmYesNo(context, context.l10n.removeFromEatenTitle(entry.foodName));
 
   /// Removes via the ✕ button (swiping goes through the Dismissible).
   Future<void> _removeEntryWithConfirm(FoodLogEntry entry) async {
@@ -201,29 +210,20 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
           : ListView(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.chevron_left),
-                      onPressed: () => _shiftDay(-1),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: _pickDay,
-                        child: Text(_isToday
-                            ? l10n.today
-                            : DateFormat.yMMMEd().format(_day)),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.chevron_right),
-                      onPressed: _isToday ? null : () => _shiftDay(1),
-                    ),
-                  ],
+                _DaySelector(
+                  label: _isToday
+                      ? l10n.today
+                      : DateFormat.yMMMEd().format(_day),
+                  onPrevious: () => _shiftDay(-1),
+                  onPick: _pickDay,
+                  // No logging food for days that haven't come yet.
+                  onNext: _isToday ? null : () => _shiftDay(1),
                 ),
                 _CalorieTargetCard(
-                  eatenKcal:
-                      entries.fold<double>(0, (s, e) => s + e.nutrients.kcal),
+                  eatenKcal: entries.fold<double>(
+                    0,
+                    (s, e) => s + e.nutrients.kcal,
+                  ),
                   profile: widget.profile,
                   latestWeightKg: widget.latestWeightKg,
                   onEditProfile: _editCalorieProfile,
@@ -232,75 +232,33 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
                 _NutrientTotals(entries: entries),
                 if (favourites.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: Colors.amber, size: 20),
-                      const SizedBox(width: 6),
-                      Text(l10n.favourites,
-                          style: Theme.of(context).textTheme.titleMedium),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 4,
-                    children: [
-                      for (final food in favourites)
-                        ActionChip(
-                          avatar: FoodImage(path: food.imagePath, size: 24),
-                          label: Text(food.name),
-                          onPressed: () => _logFavourite(food),
-                        ),
-                    ],
+                  _FavouritesSection(
+                    favourites: favourites,
+                    onTap: _logFavourite,
                   ),
                 ],
                 const SizedBox(height: 16),
-                Text(l10n.eaten, style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  l10n.eaten,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 if (entries.isEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Center(child: Text(l10n.nothingLogged)),
                   ),
+                // Newest first.
                 for (final entry in entries.reversed)
-                  Dismissible(
-                    key: ValueKey(entry.id),
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 16),
-                      color: Colors.red,
-                      child: const Icon(Icons.delete, color: Colors.white),
-                    ),
-                    confirmDismiss: (_) => _confirmRemoveEntry(entry),
-                    onDismissed: (_) => _deleteEntry(entry),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: FoodImage(
-                        path: _foods
-                            .where((f) => f.id == entry.foodId)
-                            .firstOrNull
-                            ?.imagePath,
-                        size: 40,
-                      ),
-                      title: Text(entry.foodName),
-                      subtitle: Text(
-                          '${formatNumber(entry.amount)} ${entry.unit} · '
-                          '${DateFormat.Hm().format(entry.date)}'),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('${entry.nutrients.kcal.round()} kcal'),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.edit_outlined, size: 18),
-                          IconButton(
-                            tooltip: l10n.removeFromEaten,
-                            icon: const Icon(Icons.close),
-                            onPressed: () => _removeEntryWithConfirm(entry),
-                          ),
-                        ],
-                      ),
-                      onTap: () => _editEntry(entry),
-                    ),
+                  _EatenEntryTile(
+                    entry: entry,
+                    imagePath: _foods
+                        .where((f) => f.id == entry.foodId)
+                        .firstOrNull
+                        ?.imagePath,
+                    onTap: () => _editEntry(entry),
+                    confirmRemove: () => _confirmRemoveEntry(entry),
+                    onSwipedAway: () => _deleteEntry(entry),
+                    onRemovePressed: () => _removeEntryWithConfirm(entry),
                   ),
                 if (entries.isNotEmpty) ...[
                   const SizedBox(height: 16),
@@ -308,6 +266,135 @@ class _FoodLogScreenState extends State<FoodLogScreen> {
                 ],
               ],
             ),
+    );
+  }
+}
+
+/// "‹  Today  ›": steps between days, or opens a calendar when tapped.
+class _DaySelector extends StatelessWidget {
+  const _DaySelector({
+    required this.label,
+    required this.onPrevious,
+    required this.onPick,
+    required this.onNext,
+  });
+
+  final String label;
+  final VoidCallback onPrevious;
+  final VoidCallback onPick;
+
+  /// Null disables the button.
+  final VoidCallback? onNext;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(icon: const Icon(Icons.chevron_left), onPressed: onPrevious),
+        Expanded(
+          child: TextButton(onPressed: onPick, child: Text(label)),
+        ),
+        IconButton(icon: const Icon(Icons.chevron_right), onPressed: onNext),
+      ],
+    );
+  }
+}
+
+/// Starred foods as chips; tapping one asks the amount and logs it.
+class _FavouritesSection extends StatelessWidget {
+  const _FavouritesSection({required this.favourites, required this.onTap});
+
+  final List<Food> favourites;
+  final ValueChanged<Food> onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.star, color: Colors.amber, size: 20),
+            const SizedBox(width: 6),
+            Text(
+              context.l10n.favourites,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          children: [
+            for (final food in favourites)
+              ActionChip(
+                avatar: FoodImage(path: food.imagePath, size: 24),
+                label: Text(food.name),
+                onPressed: () => onTap(food),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// One eaten food. Tap to change the amount; remove it with the ✕ button
+/// or by swiping left (both ask first).
+class _EatenEntryTile extends StatelessWidget {
+  const _EatenEntryTile({
+    required this.entry,
+    required this.imagePath,
+    required this.onTap,
+    required this.confirmRemove,
+    required this.onSwipedAway,
+    required this.onRemovePressed,
+  });
+
+  final FoodLogEntry entry;
+  final String? imagePath;
+  final VoidCallback onTap;
+  final Future<bool> Function() confirmRemove;
+  final VoidCallback onSwipedAway;
+  final VoidCallback onRemovePressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+      key: ValueKey(entry.id),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 16),
+        color: Colors.red,
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
+      confirmDismiss: (_) => confirmRemove(),
+      onDismissed: (_) => onSwipedAway(),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        leading: FoodImage(path: imagePath, size: 40),
+        title: Text(entry.foodName),
+        subtitle: Text(
+          '${formatNumber(entry.amount)} ${entry.unit} · '
+          '${DateFormat.Hm().format(entry.date)}',
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('${entry.nutrients.kcal.round()} kcal'),
+            const SizedBox(width: 8),
+            const Icon(Icons.edit_outlined, size: 18),
+            IconButton(
+              tooltip: context.l10n.removeFromEaten,
+              icon: const Icon(Icons.close),
+              onPressed: onRemovePressed,
+            ),
+          ],
+        ),
+        onTap: onTap,
+      ),
     );
   }
 }
@@ -346,18 +433,20 @@ class _CalorieTargetCard extends StatelessWidget {
             children: [
               Text(l10n.kcalEaten(eaten), style: textTheme.headlineMedium),
               const SizedBox(height: 8),
-              Text(needsWeight
-                  ? l10n.needWeightForTarget
-                  : l10n.needInfoForTarget),
+              Text(
+                needsWeight ? l10n.needWeightForTarget : l10n.needInfoForTarget,
+              ),
               const SizedBox(height: 8),
               FilledButton.tonalIcon(
                 onPressed: needsWeight ? onShowWeightPage : onEditProfile,
-                icon: Icon(needsWeight
-                    ? Icons.monitor_weight_outlined
-                    : Icons.local_fire_department_outlined),
-                label: Text(needsWeight
-                    ? l10n.goToWeightPage
-                    : l10n.setUpCalorieTarget),
+                icon: Icon(
+                  needsWeight
+                      ? Icons.monitor_weight_outlined
+                      : Icons.local_fire_department_outlined,
+                ),
+                label: Text(
+                  needsWeight ? l10n.goToWeightPage : l10n.setUpCalorieTarget,
+                ),
               ),
             ],
           ),
@@ -374,19 +463,20 @@ class _CalorieTargetCard extends StatelessWidget {
     final aimsForDeficit = target.target < target.maintenance;
     final deficitLeft = target.maintenance.round() - eaten;
     final status = intakeStatus(
-        eaten: eatenKcal,
-        target: target.target,
-        maintenance: target.maintenance);
+      eaten: eatenKcal,
+      target: target.target,
+      maintenance: target.maintenance,
+    );
     final statusColor = intakeStatusColor(status, colors);
     final (statusIcon, statusText) = switch (status) {
       IntakeStatus.withinGoal => (
-          Icons.check_circle,
-          aimsForDeficit ? l10n.statusWithinGoalDeficit : l10n.statusWithinGoal
-        ),
+        Icons.check_circle,
+        aimsForDeficit ? l10n.statusWithinGoalDeficit : l10n.statusWithinGoal,
+      ),
       IntakeStatus.overGoal => (
-          Icons.warning_amber_rounded,
-          aimsForDeficit ? l10n.statusOverGoalDeficit : l10n.statusOverGoal
-        ),
+        Icons.warning_amber_rounded,
+        aimsForDeficit ? l10n.statusOverGoalDeficit : l10n.statusOverGoal,
+      ),
       IntakeStatus.noDeficit => (Icons.error, l10n.statusNoDeficit),
     };
     final deficit = (target.maintenance - target.target).round();
@@ -410,8 +500,10 @@ class _CalorieTargetCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(l10n.dailyTarget(goal),
-                      style: textTheme.titleMedium),
+                  child: Text(
+                    l10n.dailyTarget(goal),
+                    style: textTheme.titleMedium,
+                  ),
                 ),
                 IconButton(
                   tooltip: l10n.calorieProfileTooltip,
@@ -436,8 +528,8 @@ class _CalorieTargetCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                          child:
-                              _figure(textTheme, l10n.eaten, '$eaten kcal')),
+                        child: _figure(textTheme, l10n.eaten, '$eaten kcal'),
+                      ),
                       Expanded(
                         child: _figure(
                           textTheme,
@@ -463,9 +555,12 @@ class _CalorieTargetCard extends StatelessWidget {
                       Icon(statusIcon, color: statusColor, size: 20),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(statusText,
-                            style: textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w600)),
+                        child: Text(
+                          statusText,
+                          style: textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -477,9 +572,11 @@ class _CalorieTargetCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       l10n.minimumWarning(
-                          minimumDailyKcal(profile.sex!).round()),
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: Colors.orange.shade800),
+                        minimumDailyKcal(profile.sex!).round(),
+                      ),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.orange.shade800,
+                      ),
                     ),
                   ],
                   const SizedBox(height: 4),
@@ -502,10 +599,10 @@ class _CalorieTargetCard extends StatelessWidget {
     // Label and value each stay on one line, shrinking if needed, so three
     // fit side by side on a narrow phone with their values lined up.
     Widget oneLine(String text, TextStyle? style) => FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: Alignment.centerLeft,
-          child: Text(text, style: style, maxLines: 1),
-        );
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(text, style: style, maxLines: 1),
+    );
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: Column(

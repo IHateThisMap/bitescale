@@ -80,7 +80,7 @@ List<TransferFood> decodeFoods(List<int> bytes) {
           Food(
             id: 'import$i',
             name: (f['name'] as String).trim(),
-            category: f['category'] as String? ?? 'Other',
+            category: f['category'] as String? ?? otherCategory,
             unit: f['unit'] == 'ml' ? 'ml' : 'g',
             per100: Nutrients.fromJson(
                 (f['per100'] as Map).cast<String, dynamic>()),

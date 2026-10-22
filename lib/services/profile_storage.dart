@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user_profile.dart';
 
+/// Persists the [UserProfile] (height, goal, measurements...) on the device.
 class ProfileStorage {
   static const _key = 'user_profile';
 

@@ -71,7 +71,8 @@ class TimeRangeScale {
       if (t <= markPositions[i]) {
         final from = markDays[i - 1].toDouble();
         final to = markDays[i].toDouble();
-        final local = (t - markPositions[i - 1]) /
+        final local =
+            (t - markPositions[i - 1]) /
             (markPositions[i] - markPositions[i - 1]);
         final days = i == 1
             ? from * math.pow(to / from, local)

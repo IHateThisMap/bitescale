@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:flutter_calorie_couinter_exercise_app/main.dart';
 import 'package:flutter_calorie_couinter_exercise_app/services/food_storage.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 String foodJson(String id, String name, String category, {double kcal = 100}) =>
     '{"id":"$id","name":"$name","category":"$category","unit":"g",'

@@ -8,9 +8,9 @@ import '../models/food.dart';
 import '../services/food_image_service.dart';
 import '../services/food_sharing.dart';
 import '../services/food_storage.dart';
-import '../widgets/remove_category_dialog.dart';
+import '../utils/format.dart';
 import '../widgets/food_image.dart';
-import '../widgets/number_dialog.dart';
+import '../widgets/remove_category_dialog.dart';
 
 /// Creates a new saved food, or edits [food] if given.
 /// Pops with the saved [Food].
@@ -131,7 +131,7 @@ class _FoodEditScreenState extends State<FoodEditScreen> {
     setState(() {
       _categories.remove(category);
       if (l10n.categoryToSave(_category.text) == category) {
-        _category.text = l10n.categoryLabel('Other');
+        _category.text = l10n.categoryLabel(otherCategory);
       }
     });
   }
@@ -155,7 +155,7 @@ class _FoodEditScreenState extends State<FoodEditScreen> {
     final food = Food(
       id: id,
       name: _name.text.trim(),
-      category: category.isEmpty ? 'Other' : category,
+      category: category.isEmpty ? otherCategory : category,
       unit: _unit,
       per100: Nutrients(
         kcal: parseNumber(_kcal.text)!,

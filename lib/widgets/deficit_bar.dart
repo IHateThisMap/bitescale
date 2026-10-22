@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/labels.dart';
-import '../utils/health.dart';
+import '../utils/calorie_target.dart';
 
 /// Colour for each [IntakeStatus], shared by the bar and the status line.
 Color intakeStatusColor(IntakeStatus status, ColorScheme colors) =>

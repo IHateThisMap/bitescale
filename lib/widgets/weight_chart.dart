@@ -4,10 +4,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/weight_entry.dart';
 import '../l10n/labels.dart';
+import '../models/weight_entry.dart';
+import '../utils/format.dart';
 import '../utils/trend.dart';
-import 'number_dialog.dart';
 
 /// The recorded weights of the last [rangeDays] days, with a trend line
 /// fitted to them.

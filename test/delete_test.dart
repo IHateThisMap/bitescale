@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:flutter_calorie_couinter_exercise_app/main.dart';
 import 'package:flutter_calorie_couinter_exercise_app/services/food_storage.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const foods = '[{"id":"a","name":"Banana","category":"Other","unit":"g",'
     '"per100":{"kcal":89}},{"id":"b","name":"Pizza","category":"Meals",'

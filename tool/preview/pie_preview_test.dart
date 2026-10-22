@@ -5,10 +5,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_calorie_couinter_exercise_app/l10n/app_localizations.dart';
 import 'package:flutter_calorie_couinter_exercise_app/widgets/category_pie_chart.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 Future<void> loadFont() async {
   final bytes = File('C:/Windows/Fonts/segoeui.ttf').readAsBytesSync();

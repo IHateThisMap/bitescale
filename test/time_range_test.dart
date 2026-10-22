@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:flutter_calorie_couinter_exercise_app/main.dart';
 import 'package:flutter_calorie_couinter_exercise_app/utils/time_range.dart';
 import 'package:flutter_calorie_couinter_exercise_app/widgets/weight_chart.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Days at evenly spaced slider positions.
 List<int> sample(TimeRangeScale s, [int steps = 200]) =>

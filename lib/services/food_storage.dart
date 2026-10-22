@@ -41,18 +41,17 @@ class FoodStorage {
   /// Removes a category the user created: its foods, and eaten foods
   /// logged with it, move to "Other". Returns how many saved foods moved.
   Future<int> removeCategory(String category) async {
-    const fallback = 'Other';
     final foods = await loadFoods();
     final moved = foods.where((f) => f.category == category).length;
     await saveFoods([
       for (final f in foods)
-        f.category == category ? f.withCategory(fallback) : f,
+        f.category == category ? f.withCategory(otherCategory) : f,
     ]);
 
     final log = await loadLog();
     await saveLog([
       for (final e in log)
-        e.category == category ? e.copyWith(category: fallback) : e,
+        e.category == category ? e.copyWith(category: otherCategory) : e,
     ]);
     return moved;
   }

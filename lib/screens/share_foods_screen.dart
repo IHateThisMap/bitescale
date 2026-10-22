@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../l10n/labels.dart';
 import '../models/food.dart';
 import '../services/food_sharing.dart';
+import '../utils/format.dart';
 import '../widgets/food_image.dart';
-import '../widgets/number_dialog.dart';
 
 /// Picks which saved foods to send to someone, then opens the share menu.
 class ShareFoodsScreen extends StatefulWidget {

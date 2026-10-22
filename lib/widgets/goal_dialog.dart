@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../l10n/labels.dart';
-import 'number_dialog.dart';
+import '../utils/format.dart';
 
 class GoalResult {
   const GoalResult(this.weightKg, this.date);

@@ -7,8 +7,8 @@ import '../models/food.dart';
 import '../services/food_image_service.dart';
 import '../services/food_storage.dart';
 import '../services/food_transfer.dart';
+import '../utils/format.dart';
 import '../widgets/food_image.dart';
-import '../widgets/number_dialog.dart';
 
 /// Imports a food file, whether picked in the app or sent by someone:
 /// compares it with the saved foods, lets the user review it, and reports

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../l10n/labels.dart';
 import '../models/food.dart';
+import '../utils/format.dart';
 import 'food_image.dart';
-import 'number_dialog.dart';
 
 /// Asks how many grams / millilitres of [food] were eaten. Foods with a
 /// portion size can also be entered as a number of portions.

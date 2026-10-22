@@ -2,17 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:flutter_calorie_couinter_exercise_app/l10n/app_localizations.dart';
 import 'package:flutter_calorie_couinter_exercise_app/main.dart';
 import 'package:flutter_calorie_couinter_exercise_app/models/food.dart';
 import 'package:flutter_calorie_couinter_exercise_app/models/user_profile.dart';
 import 'package:flutter_calorie_couinter_exercise_app/models/weight_entry.dart';
-import 'package:flutter_calorie_couinter_exercise_app/utils/health.dart';
+import 'package:flutter_calorie_couinter_exercise_app/utils/body_metrics.dart';
+import 'package:flutter_calorie_couinter_exercise_app/utils/calorie_target.dart';
 import 'package:flutter_calorie_couinter_exercise_app/utils/trend.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The food form is long; make the whole form fit so every field is built.
 void useTallScreen(WidgetTester tester) {
