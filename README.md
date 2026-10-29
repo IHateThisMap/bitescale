@@ -81,7 +81,7 @@ Download it with **Code → Download ZIP** on this page and unzip it, or with
 git:
 
 ```bash
-git clone https://github.com/OWNER/bitescale.git
+git clone https://github.com/IHateThisMap/bitescale.git
 ```
 
 Then open a terminal in the project folder.
