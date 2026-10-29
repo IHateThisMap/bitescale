@@ -125,6 +125,24 @@ steps 2–5.
   If you get "App not installed", it's this: export your foods, uninstall
   the old app, then install the new one.
 
+## Ready-made food lists
+
+Don't want to type in every food yourself? The [`food_files`](food_files)
+folder has 20 everyday Finnish supermarket foods with nutrition values,
+portion sizes and photos:
+
+- [`bitescale-foods-en.json`](food_files/bitescale-foods-en.json) – in English
+- [`bitescale-foods-fi.json`](food_files/bitescale-foods-fi.json) – suomeksi
+
+To add them:
+
+1. Open the file link above on your phone and tap the **download** button
+   (↓, top right of the file view).
+2. In BiteScale, go to **Food → My foods (📖) → ⋮ → Import foods** and pick
+   the downloaded file.
+3. Untick any foods you don't want and tap **Import … foods**. Foods you already
+   have are never deleted or changed unless you choose so.
+
 ---
 
 ## How the code is organized
