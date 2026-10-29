@@ -130,7 +130,7 @@ steps 2–5.
 Don't want to type in every food yourself? The [`food_files`](food_files)
 folder has files that can be imported to the application. These files have
 some products from Finnish food stores because I live in Finland. When 
-importing, you can pick and choose what food to import from the file. Many
+importing, you can pick and choose what foods to import from the file. Many
 of the foods in the files should be perfectly usable in other countries too:
 
 - [`bitescale-foods-en.json`](food_files/bitescale-foods-en.json) – in English
