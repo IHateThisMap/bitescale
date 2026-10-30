@@ -4,9 +4,14 @@
 
 # BiteScale
 
-A simple Android app for losing (or gaining) weight with a calorie deficit.
-Track your weight and the food you eat, and BiteScale tells you how much you
-can still eat today to reach your weight goal on time.
+An android app for keeping track of your calories and weight.
+
+The app makes it easy for you to keep track of how much you have eaten and how
+much you are still on calory deficit today, and how much you are under or over
+of your current calorie goal! You can set a weight goal for yourself to some date
+in future, and the app makes it very easy for you to keep track of your eating habits,
+to visualize how much each food or ingredient you eat actually have calories compared
+to other things you eat, and to help you reach your goal!
 
 Everything stays on your phone. No account, no ads, no internet needed.
 
